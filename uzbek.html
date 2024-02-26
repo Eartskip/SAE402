@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/uyx0ihl.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Minaret Kalon de Bukhara</title>
+</head>
+<body>
+<!-- Navbar  --> 
+<div id="nav">
+    <nav class="navbar">
+        <div id="area" style="width:10% ; height:100px;"></div> 
+      <div class="links">
+        <a href="./index.html">Accueil</a>
+        <a href="./index.html#map">Carte</a>
+        <a href="./index.html#team">Équipe</a>
+      </div>
+    </nav>
+    </div>   
+
+    <div class="container">  
+        <div class="model">
+            <iframe src="https://skfb.ly/oQMZp"></iframe>
+           
+        </div>
+        <div class="text">
+            <h1>Le Minaret Kalon de Bukhara</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni 
+                consequuntur repellendus ducimus nemo quisquam, dolorem, nulla provident 
+                doloremque nihil atque perferendis commodi eius possimus molestiae saepe fugit. Error, nisi explicabo?
+            <br><br>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni 
+                consequuntur repellendus ducimus nemo quisquam, dolorem, nulla provident 
+                doloremque nihil atque perferendis commodi eius possimus molestiae saepe fugit. Error, nisi explicabo?
+            <br><br>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni 
+                consequuntur repellendus ducimus nemo quisquam, dolorem, nulla provident 
+                doloremque nihil atque perferendis commodi eius possimus molestiae saepe fugit. Error, nisi explicabo?
+            <br><br>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni 
+                consequuntur repellendus ducimus nemo quisquam, dolorem, nulla provident 
+                doloremque nihil atque perferendis commodi eius possimus molestiae saepe fugit. Error, nisi explicabo?</p>
+                
+        </div>
+    </div>
+    
+    
+
+
+
+<!-- Footer -->
+<footer>
+    <div class="foot-container">
+        <p>&copy; 2024 Steven Le Cam & Antoine Moulin. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="js/three.min.js"></script>
+<script src="js/OrbitControls.js"></script>
+<!-- <script src="js/ColladaLoader.js"></script> -->
+
+<script>
+
+    // variables nécessairement globales aux 2 fonctions suivantes
+    var renderer, scene, camera, cube, instantCourant ;
+    var mat, mat1, mat2, fg,clickInfo=[]; ;
+    
+    // Fonction init() pour créer la scene,
+    // 		animate() pour l'animer (elle s'appelle récursivement)
+      
+    init() ; 
+    animate() ; 
+
+      
+    function init() {
+        fg = document.getElementById("area") ;
+        console.log("fen:" + fg.offsetWidth + " "+ fg.offsetHeight ) ; 
+        
+   // Création et placement de la caméra.
+   camera = new THREE.PerspectiveCamera(75, fg.offsetWidth/fg.offsetHeight, 0.1, 10000);
+   camera.position.z = 900;
+        
+   // Instanciation du moteur de rendu WebGL.
+   renderer = new THREE.WebGLRenderer();
+         // Le moteur est de la même taille que la fenetre.
+   renderer.setSize(fg.offsetWidth, fg.offsetHeight);
+   // on associe la fenetre de rendu à la fenetre
+         fg.appendChild(renderer.domElement);
+         // Contrôles de la caméra orbit control
+       controls = new THREE.OrbitControls(camera,renderer.domElement);
+   // Création de la scene qui contiendra les objets.
+   scene = new THREE.Scene();
+         
+   var texture = new THREE.ImageUtils.loadTexture('Ressources/carte 4k.jpg' );
+           texture.wrapS = texture.wrapT = THREE.RepeatWrapping; 
+           texture.repeat.set( 1, 1 );
+  
+         mat1 = new THREE.MeshBasicMaterial( 
+            {
+                map:texture,
+                specular:'#ff0000',
+                shininess:10000000
+            } ) ;	
+    
+    geom = new THREE.SphereGeometry(400,30,30) ; 
+    sph  = new THREE.Mesh(geom,mat1);
+    scene.add(sph);
+
+        var texture2 = new THREE.ImageUtils.loadTexture('Ressources/carte 4k.jpg');
+        texture2.wrapS = texture2.wrapT = THREE.RepeatWrapping; 
+        texture2.repeat.set( 1, 1 );
+        
+        mat2 = new THREE.MeshBasicMaterial(
+            {
+                map:texture2,
+                color:'#ffffff', 
+                specular:'#ffffff',
+                shininess:1000000,
+            }
+  )	;
+  mat = mat1 ; 
+    
+        lumiere2 = new THREE.DirectionalLight(0xffffff);
+        lumiere2.position.set(0, 50, 100);
+        scene.add(lumiere2);
+    }
+        
+// Fonction animate
+function animate() {
+     sph.rotation.y += 0.001;
+ renderer.render(scene, camera);
+     requestAnimationFrame(function(){ animate(); });
+};
+              
+    </script>
+
+
+</body>
+</html>

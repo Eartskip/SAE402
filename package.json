@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "gltfloader": "github:codeurdenuit/GLTFLoader#main"
+  }
+}
